@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+	<body>
+		<div ng-app="myApp" ng-controller="myCtrl">
+			<h1>Weather Checker</h1>
+			<p id="tag" style="display:none;"> 6 Day Local weather forecast for {{weather.title}}, derived from your Public IP address: {{weather.ip}} </p>
+			
+			<button type="button" ng-click="getWeather()">Find my Weather!</button>
+			<table border="1">
+				<tr>
+					<th ng-click="col='Date';desc=!desc">Date</th>
+					<th ng-click="col='Forecast';desc=!desc">Forecast</th>
+					<th ng-click="col='MinTemp';desc=!desc">Minimum Temperature</th>
+					<th ng-click="col='MaxTemp';desc=!desc">Maximum Temperature</th>
+					<th ng-click="col='Confidence';desc=!desc">Confidence</th>
+				</tr>
+				<tr ng-repeat="x in weather.consolidated_weather | orderBy : col: desc">
+					<td>{{ x.applicable_date}}</td>
+					<td>{{ x.weather_state_name }}</td>
+					<td>{{ x.min_temp }}</td>
+					<td>{{ x.max_temp }}</td>
+					<td>{{ x.predictability }}</td>
+				</tr>
+			</table>
+			
+			<p style="display:none;">{{weather.sources}} </p>
+			<p style="display:none;">{{weather.consolidated_weather}} </p>
+			<p style="display:none;">{{weather}} </p>
+		</div>
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('myCtrl', function ($scope, $http) {
+       
+            $scope.getWeather = function () {
+                $http.get("/weather")
+                    .then(function (response) {
+                        console.log(response);
+                        $scope.weather = response.data;
+						document.getElementById("tag").style.display = "block";
+                    }).catch(function (err) {
+                        alert(err.message);
+                    });
+            }
+        });
+    </script>
+	</body>
+	
+</html>
