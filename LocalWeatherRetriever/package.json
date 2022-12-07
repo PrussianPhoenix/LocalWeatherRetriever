@@ -2,7 +2,7 @@
 	"name": "Duo Api app",
 	"version": "0.0.1",
 	"dependencies": {
-		"express": "^4.17.1",
+		"express": "^4.18.2",
 		"iplocation": "^6.1.0",
 		"metaweather": "0.0.2",
 		"public-ip": "^3.2.0"
