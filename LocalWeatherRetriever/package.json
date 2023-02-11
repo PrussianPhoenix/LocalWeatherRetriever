@@ -5,6 +5,6 @@
 		"express": "^4.17.1",
 		"iplocation": "^6.1.0",
 		"metaweather": "0.0.2",
-		"public-ip": "^3.2.0"
+		"public-ip": "^6.0.1"
 	}
 }
